@@ -132,3 +132,5 @@ namespace ClientSide
 !Взять с Github Файл IGNORE_LIST и поместить его в папку client_packages
 ? Для того чтобы в этой папке не появлялись не нужные побочные папки
 */
+
+asasdasd
