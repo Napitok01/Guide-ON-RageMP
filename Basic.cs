@@ -28,7 +28,7 @@
 
     //! КОД ДЛЯ Main.cs в ServerSide
 
-using GTANetworkAPI
+using GTANetworkAPI;
 
 namespace ServerSide
 {
@@ -133,4 +133,16 @@ namespace ClientSide
 ? Для того чтобы в этой папке не появлялись не нужные побочные папки
 */
 
-asasdasd
+
+
+
+
+
+//! <------------------------Теперь тут будет дальнейшее выполнение и направление в другие файлы-------------------------->
+
+
+
+/*
+    * Чтобы добавить команды нужно создать новый класс "Commands.cs" в ServerSide 
+    !Дальше про команды в файле Commands_guide.cs
+*/
