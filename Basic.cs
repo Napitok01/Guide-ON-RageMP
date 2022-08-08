@@ -1,32 +1,32 @@
-    /* 
-      !---------START---------!
-      * Установить RageMP, Файлы из папки "ServerFiles" скопировать в
-      * новую папку для удобства например : 'Rage'
-      * после запусти Ragemp-server.exe от имени админ.
+/* 
+  !---------START---------!
+  * Установить RageMP, Файлы из папки "ServerFiles" скопировать в
+  * новую папку для удобства например : 'Rage'
+  * после запусти Ragemp-server.exe от имени админ.
 
-      * в файле conf.json поменять "csharp : 'disabled'" на 'enabled'
+  * в файле conf.json поменять "csharp : 'disabled'" на 'enabled'
 
-      * после запусти Ragemp-server.exe от имени админ. --
-      * будет ошибка мол папка ресурсы - не найдена
+  * после запусти Ragemp-server.exe от имени админ. --
+  * будет ошибка мол папка ресурсы - не найдена
 
-      * после в папке "dotnet" создаем папку "resources"
+  * после в папке "dotnet" создаем папку "resources"
 
-      * заходим в Visual Studio
-      !ДОЛЖЕН СТОЯТЬ .NET
+  * заходим в Visual Studio
+  !ДОЛЖЕН СТОЯТЬ .NET
 
-      *Создаем проект с "ClassLibrary" имя файла : 'ServerSide' Solution name = "Project"
-      *location = "rage\dotnet\resources"
-      *после выбрать NETCORE 3.1
+  *Создаем проект с "ClassLibrary" имя файла : 'ServerSide' Solution name = "Project"
+  *location = "rage\dotnet\resources"
+  *после выбрать NETCORE 3.1
 
-      *'Class1.cs' поменять на 'Main.cs'
-      убрать using
-      *справа -- ServerSide-> ПКМ-> Add-> project_Reference -- Solution -> browse --
-      *rage\dotnet\runtime\bootstrapper.dll -> OK
-      ? (создаем зависимость)
-    */
+  *'Class1.cs' поменять на 'Main.cs'
+  убрать using
+  *справа -- ServerSide-> ПКМ-> Add-> project_Reference -- Solution -> browse --
+  *rage\dotnet\runtime\bootstrapper.dll -> OK
+  ? (создаем зависимость)
+*/
 
 
-    //! КОД ДЛЯ Main.cs в ServerSide
+//! КОД ДЛЯ Main.cs в ServerSide
 
 using GTANetworkAPI;
 
@@ -84,11 +84,11 @@ namespace ServerSide
 
 
     //! Код для meta.xml
-    <meta>
-    <info name="/*другое название проекта*/" description="/*Описание*/" />
+    < meta >
+    < info name = "/*другое название проекта*/" description = "/*Описание*/" />
 
-    <script src="ServerSide\bin\x64\Debug\netcoreapp3.1\ServerSide.dll" /> //ctr + S
-    </meta>
+    < script src = "ServerSide\bin\x64\Debug\netcoreapp3.1\ServerSide.dll" /> //ctr + S
+    </ meta >
 
      /*
        *Запускаем решение
@@ -118,7 +118,7 @@ namespace ClientSide
         public Main()
         {
             Events.OnPlayerReady += PlayerReady;
-        }   
+        }
         private void PlayerReady()
         {
             RAGE.Chat.Output("Hello, you joined the server!"); //? Для примера
@@ -145,4 +145,23 @@ namespace ClientSide
 /*
     * Чтобы добавить команды нужно создать новый класс "Commands.cs" в ServerSide 
     !Дальше про команды в файле Commands_guide.cs
+*/
+
+
+/*
+! колшейпы, блипы, маркеры и тд. разобраны в Commands_guide.cs
+*/
+
+
+
+/*
+! ИвЕНТЫ
+* Список можно найти на GTAnet.work wiki - ServrSide Events
+* Список можно найти на - Rage.mp ClientSide Events
+
+* Серверные Ивенты прописываются в классе Events.cs от ServerSide - гайд по ним будет в файле EventsGuide.cs 
+
+* Клиентские ивенты прописываются в папке Player от ClientSide
+* В эту папку нужно складывать все скрипты относящиеся к игроку
+* создаем в папке новый класс ExampleEvents.cs - туда пишем ивенты
 */
