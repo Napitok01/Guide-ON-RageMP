@@ -26,6 +26,17 @@ namespace ServerSide
             if (vehicle == null) return; //? если игрко вышел то машина красится в белый
             vehicle.PrimaryColor = 131;
         }
+
+        [RemoteEvent("CLIENT:SERVER:RepairCar")] //* для получения с клиента 
+        private void RepairCar(Player player)
+        {
+            if (player.Vehicle == null)
+            {
+                player.SendChatMessage("You're not in a vehicle! From Server!");
+                return;
+            }
+            player.Vehicle.Repair();
+        }
     }
 }
 
@@ -44,7 +55,34 @@ namespace ClientSide.Player
         {
             Events.OnPlayerEnterColshape += OnPlayerEnterColshape;
             Events.OnPlayerExitColshape += OnPlayerExitColshape;
+            Events.Add("SERVER:CLIENT:RandomizePLayer", RandomizePlayer);//* Реализуем Кастомный ивент
+            RAGE.Input.Bind(VirtualKeys.F5, true, () => //! С клиента на сервер 
+            {
+                if (RAGE.Elements.Player.LocalPlayer.Vehicle == null)
+                    RAGE.Chat.Output("You're not in car! From Client! ");
+                return;
+                Events.CallRemote("CLIENT:SERVER:RepairCar"); //? тригерим ивента на сервер 
+            }); //* теперь на ServerSide в Events
         }
+
+
+        //! С сервера на клиент
+        private void RandomizePLayer(object[] args)
+        {
+            Random rand = new Random();
+            RAGE.Elements.Player.LocalPlayer.SetHeadBlendData(
+            rand.next(0, 3),
+            rand.next(0, 3),
+            rand.next(0, 3),
+            rand.next(0, 3),                    //* тут создаем рандом 
+            rand.next(0, 3),
+            rand.next(0, 3),
+            0.5f,
+            0.5f,
+            0.5f,
+            false);
+        }
+
 
         private void OnPlayerExitColshape(Colshape colshape, Events.CancelEventArgs cancel)
         {
@@ -61,4 +99,13 @@ namespace ClientSide.Player
 
 
 
-//! Кастомный ивент с Сервера на Клиент
+//! Кастомный ивент с Сервера на Клиент:
+/*
+    *Создаем команду для кастомного ивента, (Например /RandomizeMe) 
+*/
+
+
+//! Кастомный ивент с Клиента на Сервер: 
+/*
+    * Сначало на ClientSide создаем ивент(Пример,"При нажатии F5 чинится машина" )
+*/

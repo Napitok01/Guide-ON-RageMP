@@ -182,3 +182,12 @@ private void OnEntityExitColShape(ColShape colShape, Player player)
 */
 
 
+
+//! Команда для кастомного ивента с сервера на клиент: 
+
+[Command("randomizeme")]
+private void RandomizeMe(Player player)
+{
+    player.TriggerEvent("SERVER:CLIENT:RandomizePLayer"); //* тригерим ивент
+} //* теперь переходим на ClientSide(ExampleEvents(т.к ивент от игрока)), для реализации ивента
+
