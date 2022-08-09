@@ -109,3 +109,8 @@ namespace ClientSide.Player
 /*
     * Сначало на ClientSide создаем ивент(Пример,"При нажатии F5 чинится машина" )
 */
+
+
+
+
+//! Всё про DATA будет в DataGuide.cs

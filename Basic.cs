@@ -108,9 +108,9 @@ namespace ServerSide
 
 
     //! КОД ДЛЯ Main.cs в ClientSide
+   
     
 using Rage;
-
 namespace ClientSide
 {
     public class Main : Events.Script
