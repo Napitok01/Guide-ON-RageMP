@@ -87,11 +87,29 @@ namespace ClientSide
     public class Client : Events.Script
     {
         private const string _levelKey = nameof(_levelKey);
+        private const string _walletKey = nameof(_walletKey);
         public class Client()
         {
             RAGE.Chat.Output("Hello  World, Client");
             RAGE.Input.Bind(VirtualKeys.F4, true, LevelNotifier);
+            RAGE.Events.AddDataHandler(_walletKey, MoneyHandler);
+    }
+
+    private void MoneyHandler(Entity entity, object arg, object oldarg) //* когда команда будет введена HANDLER сам скажет что произошло
+    {
+        if (entity is RAGE.Elements.Player == false) return; //? проверяем является ли entity игроком
+        int money = (int)arg;
+        int oldMoney = (int)oldarg;
+
+        if (money > oldMoney)
+        {
+            Chat.Output("You earned some money. Amount: " + (money - oldMoney));
         }
+        else
+        {
+            Chat.Output("You spend some Money. Amount: " + (oldMoney - money));
+        }
+    }
 
     private void LevelNotifier() //* Сделаем так чтобы при нажатии F4 выводился в чат весь список игроков и их уровни
     {
@@ -102,6 +120,53 @@ namespace ClientSide
     }
 }
 }
+
+
+
+//! OWN SHARED DATA : 
+
+/*
+    * Пример : Система денег :
+
+    * в OwnSharedData мы не можем использовать метод "HasOwnSharedData" - он никогда не вернёт нам настоящее значение
+    * он сейчас на платформе поломан поэтому пользуемся костылём
+
+    * Создаем класс Wallet в ServerSide :
+*/
+
+using GTANetworkAPI;
+
+namespace ServerSide
+{
+    public class Wallet : Script
+    {
+        private const string _walletKey = nameof(_walletKey);
+
+        [Command]
+        private void GetMoney(Player player, int amount)
+        {
+            if (player.GetOwnSharedData<int?>(_walletKey) == null) player.SetOwnSharedData(_walletKey, 0);
+            player.SetOwnSharedData(_walletKey, player.GetOwnSharedData<int>(_walletKey) + amount);
+        }
+
+        [Command]
+        private void SpendMoney(Player player, int amount)
+        {
+            if (player.GetOwnSharedData<int?>(_walletKey) == null) player.SetOwnSharedData(_walletKey, 0);
+
+            if (player.GetOwnSharedData<int?>(_walletKey) < amount)
+            {
+                player.SendChatMessage("you don't have Enought money!");
+                return;
+            }
+
+            player.SetOwnSharedData(_walletKey, player.GetOwnSharedData<int>(_walletKey) - amount);
+        }
+    }
+}
+//* Теперь переходим в ClientSide в Client :
+
+//! смотри ВЫШЕ !!!!
 
 
 
