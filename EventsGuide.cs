@@ -114,3 +114,7 @@ namespace ClientSide.Player
 
 
 //! Всё про DATA будет в DataGuide.cs
+
+
+
+//! Теперь про процедуры будет в EF_Guide.cs
